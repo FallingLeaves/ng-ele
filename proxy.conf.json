@@ -1,0 +1,11 @@
+{
+  "/api": {
+    "target": "https://elm.cangdu.org",
+    "changeOrigin": true,
+    "secure": false,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/api": ""
+    }
+  }
+}

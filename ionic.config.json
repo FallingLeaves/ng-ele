@@ -1,0 +1,7 @@
+{
+  "name": "ng-ele",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

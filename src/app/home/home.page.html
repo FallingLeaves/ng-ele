@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <span class="head-logo">ele.me</span>
+    <app-login-header></app-login-header>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <nav class="city-nav">
+    <div class="city-tip">
+      <span>当前定位城市</span>
+      <span>定位不准时，请在城市列表中选择</span>
+    </div>
+    <a class="guess-city">
+      <span>{{guessCity.name}}</span>
+      <svg class="arrow-right" [routerLink]="['/city', guessCity.id]">
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-right"></use>
+      </svg>
+    </a>
+  </nav>
+  <section class="hot-city-container">
+    <h4 class="city-title">热门城市</h4>
+    <ul class="citylistul clear">
+      <li *ngFor="let hotCity of hotCities" [routerLink]="['/city', hotCity.id]" >
+        {{hotCity?.name}}
+      </li>
+    </ul>
+  </section>
+  <section class="group-city-container">
+    <ul class="letter-classify">
+      <li *ngFor="let group of groupCities" class="letter-classify-li">
+        <h4 class="city-title">{{group?.letter}}<span *ngIf="group.letter === 'A'">（按字母排序）</span></h4>
+        <ul class="groupcity-name-container citylistul clear">
+          <li *ngFor="let city of group.cities" [routerLink]="['/city', city.id]" class="ellipsis">{{city?.name}}</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+</ion-content>

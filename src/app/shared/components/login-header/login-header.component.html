@@ -1,0 +1,6 @@
+<span class="login-span" *ngIf="!userId" [routerLink]="['/login']">
+  登录|注册
+</span>
+<svg class="user-avatar" *ngIf="userId" (click)="toProfile()">
+  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use>
+</svg>

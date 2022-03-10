@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "ng-ele",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
