@@ -37,4 +37,17 @@ export class RequestService {
       })
     );
   }
+
+  getCityById(id: string): Observable<any> {
+    return this.http.get('/v1/cities' + `/${id}`);
+  }
+
+  searchPlace(cityId: string, keyword: string): Observable<any> {
+    const params = {
+      type: 'search',
+      city_id: cityId,
+      keyword,
+    };
+    return this.http.get('/v1/pois', { params });
+  }
 }
