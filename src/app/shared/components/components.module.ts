@@ -6,12 +6,20 @@ import { LoginHeaderComponent } from './login-header/login-header.component';
 import { BackHeaderComponent } from './back/back-header';
 import { BackIconComponent } from './back/back-icon';
 import { ElmSvgComponent } from './svg/svg';
+import { ListComponent } from './shop/list/list.component';
+import { MsiteComponent } from './shop/msite/msite.component';
+import { LoadingComponent } from './loading/loading.component';
+import { RatingStarComponent } from './rating-star/rating-star.component';
 
 const components = [
   LoginHeaderComponent,
   BackHeaderComponent,
   BackIconComponent,
   ElmSvgComponent,
+  ListComponent,
+  MsiteComponent,
+  LoadingComponent,
+  RatingStarComponent,
 ];
 
 @NgModule({

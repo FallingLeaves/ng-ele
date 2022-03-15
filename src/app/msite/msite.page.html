@@ -1,9 +1,60 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>msite</ion-title>
+  <ion-toolbar color="primary">
+    <ion-icon name="search" (click)="toSearch()"></ion-icon>
+    <ion-title>{{addressTitle}}</ion-title>
+    <app-login-header></app-login-header>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <nav class="msite-nav">
+    <div class="swiper-container" *ngIf="foodTypes?.length">
+      <div class="food-types-container">
+        <ion-slides pager="true">
+          <ion-slide *ngFor="let foodType of foodTypes">
+            <a
+              class="link-to-food"
+              *ngFor="let foodItem of foodType"
+              [routerLink]="['/food']"
+              [queryParams]="{geohash:geohash,title:foodItem.title,restaurant_category_id:getCategoryId(foodItem.link)}"
+            >
+              <figure>
+                <img [src]="imgBaseUrl + foodItem.image_url" />
+                <figcaption>{{foodItem?.title}}</figcaption>
+              </figure>
+            </a>
+          </ion-slide>
+        </ion-slides>
+      </div>
+    </div>
+    <img
+      src="./assets/imgs/fl.svg"
+      *ngIf="!foodTypes?.length"
+      class="fl-back animation-opactiy"
+    />
+  </nav>
+  <div class="shop-list-container">
+    <header class="shop-header">
+      <svg class="shop-icon">
+        <use
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xlink:href="#shop"
+        ></use>
+      </svg>
+      <span class="shop-header-title">附近商家</span>
+    </header>
+    <app-list
+      *ngIf="hasGetData"
+      [type]="'msite'"
+      [shopList]="shopList"
+      [geohash]="geohash"
+    ></app-list>
+    <p *ngIf="touchend" class="empty-data">没有更多了</p>
+    <app-loading [hidden]="!showLoading"></app-loading>
+  </div>
+  <ion-infinite-scroll threshold="20px" (ionInfinite)="loaderMore($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+    ></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

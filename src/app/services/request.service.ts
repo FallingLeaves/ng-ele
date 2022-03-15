@@ -50,4 +50,48 @@ export class RequestService {
     };
     return this.http.get('/v1/pois', { params });
   }
+
+  getPoisGeohash(geohash: string): Observable<any> {
+    return this.http.get('/v2/pois' + `/${geohash}`);
+  }
+
+  getMsiteFoodTypes(geohash: string): Observable<any> {
+    const params = {
+      geohash,
+      group_type: '1',
+      'flags[]': 'F',
+    };
+    return this.http.get('/v2/index_entry', { params });
+  }
+
+  getShopList(
+    latitude,
+    longitude,
+    offset,
+    restaurantCategoryId = '',
+    restaurantCategoryIds = '',
+    orderBy = '',
+    deliveryMode = '',
+    supportIds = []
+  ): Observable<any> {
+    let supportStr = '';
+    supportIds.forEach((item) => {
+      if (item.status) {
+        supportStr += '&support_ids[]=' + item.id;
+      }
+    });
+    const params = {
+      latitude,
+      longitude,
+      offset,
+      limit: '20',
+      'extras[]': 'activities',
+      keyword: '',
+      restaurant_category_id: restaurantCategoryId,
+      'restaurant_category_ids[]': restaurantCategoryIds,
+      order_by: orderBy,
+      'delivery_mode[]': deliveryMode + supportStr,
+    };
+    return this.http.get('/shopping/restaurants', { params });
+  }
 }
