@@ -41,6 +41,7 @@ export class FoodPage implements OnInit {
     });
   }
 
+  // 获取分类
   getFoodCategory() {
     this.requestService
       .getFoodCategory(this.latitude, this.longitude)
