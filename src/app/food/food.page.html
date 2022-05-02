@@ -1,9 +1,114 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>food</ion-title>
-  </ion-toolbar>
+  <back-header [hTitle]="headTitle"></back-header>
 </ion-header>
 
 <ion-content>
-
+  <section class="sort-container">
+    <div class="sort-item" [ngClass]="{'choose-type':sortBy == 'food'}">
+      <div class="sort-item-container" (click)="chooseType('food')">
+        <div class="sort-item-border">
+          <span class="category-title">{{foodTitle}}</span>
+          <svg
+            width="10"
+            height="10"
+            xmlns="http://www.w3.org/2000/svg"
+            version="1.1"
+            class="sort-icon"
+          >
+            <polygon points="0,3 10,3 5,8" />
+          </svg>
+        </div>
+      </div>
+      <div name="showlist" [hidden]="!category">
+        <section
+          [hidden]="!(sortBy== 'food')"
+          class="category-container sort-detail-type"
+        >
+          <section class="category-left">
+            <ul>
+              <li
+                *ngFor="let item of category; index as index"
+                class="category-left-li"
+                [ngClass]="{'category-active':restaurantCategoryId == item.id}"
+                (click)="selectCategoryName(item, index)"
+              >
+                <section *ngIf="item.image_url">
+                  <img
+                    [src]="getImgPath(item.image_url)"
+                    class="category-icon"
+                  />
+                  <span>{{item.name}}</span>
+                </section>
+                <section *ngIf="item.image_url">
+                  <span class="category-count">{{item.count}}</span>
+                  <svg
+                    width="8"
+                    height="8"
+                    xmlns="http://www.w3.org/2000/svg"
+                    version="1.1"
+                    class="category-arrow"
+                  >
+                    <path
+                      d="M0 0 L6 4 L0 8"
+                      stroke="#bbb"
+                      stroke-width="1"
+                      fill="none"
+                    />
+                  </svg>
+                </section>
+              </li>
+            </ul>
+          </section>
+          <section class="category-right">
+            <ul>
+              <ng-container *ngFor="let item of categoryDetail;index as index">
+                <li
+                  *ngIf="index"
+                  class="category-right-li"
+                  (click)="getCategoryIds(item.id, item.name)"
+                  [ngClass]="{'category-right-choosed': restaurantCategoryIds == item.id || (!restaurantCategoryIds)&&index == 0}"
+                >
+                  <span>{{item.name}}</span>
+                  <span>{{item.count}}</span>
+                </li>
+              </ng-container>
+            </ul>
+          </section>
+        </section>
+      </div>
+    </div>
+    <div class="sort-item" [ngClass]="{'choose-type':sortBy == 'sort'}">
+      <div class="sort-item-container" (click)="chooseType('sort')">
+        <div class="sort-item-border">
+          <span class="category-title">排序</span>
+          <svg
+            width="10"
+            height="10"
+            xmlns="http://www.w3.org/2000/svg"
+            version="1.1"
+            class="sort-icon"
+          >
+            <polygon points="0,3 10,3 5,8" />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="sort-item" [ngClass]="{'choose-type':sortBy == 'activity'}">
+      <div class="sort-item-container" (click)="chooseType('activity')">
+        <div class="">
+          <span class="category-title">筛选</span>
+          <svg
+            width="10"
+            height="10"
+            xmlns="http://www.w3.org/2000/svg"
+            version="1.1"
+            class="sort-icon"
+          >
+            <polygon points="0,3 10,3 5,8" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="back-cover" [hidden]="!sortBy"></div>
 </ion-content>

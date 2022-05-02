@@ -94,4 +94,12 @@ export class RequestService {
     };
     return this.http.get('/shopping/restaurants', { params });
   }
+
+  getFoodCategory(latitude, longitude) {
+    const params = {
+      latitude,
+      longitude,
+    };
+    return this.http.get('/shopping/v2/restaurant/category', { params });
+  }
 }
