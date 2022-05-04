@@ -92,6 +92,114 @@
           </svg>
         </div>
       </div>
+      <div name="showlist">
+        <section [hidden]="!(sortBy == 'sort')" class="sort-detail-type">
+          <ul class="sort-list-container" (click)="sortList($event)">
+            <li class="sort-list-li">
+              <svg>
+                <use
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  xlink:href="#default"
+                ></use>
+              </svg>
+              <p data="0" [ngClass]="{'sort-select': sortByType == '0'}">
+                <span>智能排序</span>
+                <svg *ngIf="sortByType == '0'">
+                  <use
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="#selected"
+                  ></use>
+                </svg>
+              </p>
+            </li>
+            <li class="sort-list-li">
+              <svg>
+                <use
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  xlink:href="#distance"
+                ></use>
+              </svg>
+              <p data="5" [ngClass]="{'sort-select': sortByType == '5'}">
+                <span>距离最近</span>
+                <svg *ngIf="sortByType == '5'">
+                  <use
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="#selected"
+                  ></use>
+                </svg>
+              </p>
+            </li>
+            <li class="sort-list-li">
+              <svg>
+                <use
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  xlink:href="#hot"
+                ></use>
+              </svg>
+              <p data="6" [ngClass]="{'sort-select': sortByType == '6'}">
+                <span>销量最高</span>
+                <svg *ngIf="sortByType == '6'">
+                  <use
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="#selected"
+                  ></use>
+                </svg>
+              </p>
+            </li>
+            <li class="sort-list-li">
+              <svg>
+                <use
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  xlink:href="#price"
+                ></use>
+              </svg>
+              <p data="1" [ngClass]="{'sort-select': sortByType == '1'}">
+                <span>起送价最低</span>
+                <svg *ngIf="sortByType == '1'">
+                  <use
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="#selected"
+                  ></use>
+                </svg>
+              </p>
+            </li>
+            <li class="sort-list-li">
+              <svg>
+                <use
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  xlink:href="#speed"
+                ></use>
+              </svg>
+              <p data="2" [ngClass]="{'sort-select': sortByType == '2'}">
+                <span>配送速度最快</span>
+                <svg *ngIf="sortByType == '2'">
+                  <use
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="#selected"
+                  ></use>
+                </svg>
+              </p>
+            </li>
+            <li class="sort-list-li">
+              <svg>
+                <use
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  xlink:href="#rating"
+                ></use>
+              </svg>
+              <p data="3" [ngClass]="{'sort-select': sortByType == '3'}">
+                <span>评分最高</span>
+                <svg *ngIf="sortByType == '3'">
+                  <use
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="#selected"
+                  ></use>
+                </svg>
+              </p>
+            </li>
+          </ul>
+        </section>
+      </div>
     </div>
     <div class="sort-item" [ngClass]="{'choose-type':sortBy == 'activity'}">
       <div class="sort-item-container" (click)="chooseType('activity')">
@@ -108,7 +216,99 @@
           </svg>
         </div>
       </div>
+      <div name="showlist">
+        <section
+          [hidden]="!(sortBy == 'activity')"
+          class="sort-detail-type filter-container"
+        >
+          <section style="width: 100%">
+            <header class="filter-header-style">配送方式</header>
+            <ul class="filter-ul">
+              <li
+                *ngFor="let item of delivery"
+                class="filter-li"
+                (click)="selectDeliveryMode(item.id)"
+              >
+                <svg
+                  [ngStyle]="{opacity: (item.id == 0)&&(deliveryMode !== 0)? 0: 1}"
+                >
+                  <ng-container *ngIf="deliveryMode == item.id">
+                    <use
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xlink:href="#selected"
+                    ></use>
+                  </ng-container>
+                  <ng-container *ngIf="deliveryMode != item.id">
+                    <use
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      xlink:href="#fengniao"
+                    ></use>
+                  </ng-container>
+                </svg>
+                <span [ngClass]="{'selected-filter': deliveryMode == item.id}"
+                  >{{item.text}}</span
+                >
+              </li>
+            </ul>
+          </section>
+          <section style="width: 100%">
+            <header class="filter-header-style">商家属性（可以多选）</header>
+            <ul class="filter-ul">
+              <li
+                *ngFor="let item of activity;index as index"
+                class="filter-li"
+                (click)="selectSupportIds(index, item.id)"
+              >
+                <svg
+                  [ngClass]="{'displayNone': !supportIds[index].status}"
+                  class="activity-svg"
+                >
+                  <use
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="#selected"
+                  ></use>
+                </svg>
+                <span
+                  class="filter-icon"
+                  [ngStyle]="{color: '#' + item.icon_color, borderColor: '#' + item.icon_color}"
+                  [hidden]="supportIds[index].status"
+                  >{{item.icon_name}}</span
+                >
+                <span [ngClass]="{'selected-filter': supportIds[index].status}"
+                  >{{item.name}}</span
+                >
+              </li>
+            </ul>
+          </section>
+          <footer class="confirm-filter">
+            <div class="clear-all filter-button-style" (click)="clearSelect()">
+              清空
+            </div>
+            <div
+              class="confirm-select filter-button-style"
+              (click)="offset=0;getShopList();sortBy='';"
+            >
+              确定<span [hidden]="!filterNum">({{filterNum}})</span>
+            </div>
+          </footer>
+        </section>
+      </div>
     </div>
   </section>
   <div class="back-cover" [hidden]="!sortBy"></div>
+  <div class="shop-list-container">
+    <app-list
+      *ngIf="latitude"
+      [type]="'msite'"
+      [shopList]="shopList"
+      [geohash]="geohash"
+    ></app-list>
+    <p *ngIf="touchend" class="empty-data">没有更多了</p>
+    <app-loading [hidden]="!showLoading"></app-loading>
+  </div>
+  <ion-infinite-scroll threshold="20px" (ionInfinite)="loaderMore($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+    ></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

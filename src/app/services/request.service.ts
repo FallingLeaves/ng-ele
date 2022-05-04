@@ -102,4 +102,28 @@ export class RequestService {
     };
     return this.http.get('/shopping/v2/restaurant/category', { params });
   }
+
+  /*  获取food页面的配送方式 */
+
+  getFoodDelivery(latitude, longitude): any {
+    const params = {
+      latitude,
+      longitude,
+      kw: '',
+    };
+    return this.http.get('/shopping/v1/restaurants/delivery_modes', { params });
+  }
+
+  /* 获取food页面的商家属性活动列表 */
+
+  getFoodActivity(latitude, longitude): any {
+    const params = {
+      latitude,
+      longitude,
+      kw: '',
+    };
+    return this.http.get('/shopping/v1/restaurants/activity_attributes', {
+      params,
+    });
+  }
 }
