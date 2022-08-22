@@ -126,4 +126,28 @@ export class RequestService {
       params,
     });
   }
+
+  /* 获取shop页面商铺详情 */
+  getShopDetails(shopId: string, latitude: string, longitude: string): any {
+    const params = {
+      latitude,
+      longitude,
+      'extras[]': [
+        'activities',
+        'album',
+        'license',
+        'identification',
+        'statistics',
+      ],
+    };
+    return this.http.get('/shopping/restaurant/' + shopId, { params });
+  }
+
+  // 获取shop页面菜单列表
+  getFoodMenu(restaurantId): any {
+    const params = {
+      restaurant_id: restaurantId,
+    };
+    return this.http.get('/shopping/v2/menu', { params });
+  }
 }
