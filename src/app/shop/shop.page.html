@@ -135,6 +135,13 @@
                   <span>{{foods.specfoods[0].price}}</span>
                   <span *ngIf="foods.specifications.length">起</span>
                 </section>
+                <app-buy-car
+                  [shopId]="shopId"
+                  [foods]="foods"
+                  (onCartChange)="shopCartChange()"
+                  (onShowChooseList)="onShowChooseList($event)"
+                  (onShowMoveDot)="onShowMoveDot($event)"
+                ></app-buy-car>
               </footer>
             </section>
           </section>
@@ -175,12 +182,11 @@
         <div>
           <section
             class="cart-food-list"
-            [@cartListState]="cartState"
             *ngIf="showCartList&&cartFoodList.length"
           >
             <header>
               <h4>购物车</h4>
-              <div>
+              <div (click)="clearCart()">
                 <svg>
                   <use
                     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -205,7 +211,9 @@
                     <span>{{item.price}}</span>
                   </div>
                   <section class="cart-list-control">
-                    <span>
+                    <span
+                      (click)="removeOutCart(item.category_id, item.item_id, item.food_id, item.name, item.price, item.specs)"
+                    >
                       <svg>
                         <use
                           xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -214,7 +222,10 @@
                       </svg>
                     </span>
                     <span class="cart-num">{{item.num}}</span>
-                    <svg class="cart-add">
+                    <svg
+                      class="cart-add"
+                      (click)="addToCart(item.category_id, item.item_id, item.food_id, item.name, item.price, item.specs)"
+                    >
                       <use
                         xmlns:xlink="http://www.w3.org/1999/xlink"
                         xlink:href="#cart-add"
@@ -228,12 +239,57 @@
         </div>
         <div>
           <div
-            class="screen_cover"
+            class="screen-cover"
             [hidden]="!(showCartList&&cartFoodList.length)"
           ></div>
         </div>
       </section>
       <div [hidden]="changeShowType !='rating'" class="rating-container"></div>
+    </section>
+    <section>
+      <div
+        class="specs-cover"
+        (click)="onShowChooseList()"
+        *ngIf="showSpecs"
+      ></div>
+      <div name="fadeBounce">
+        <div class="specs-list" *ngIf="showSpecs">
+          <header class="specs-list-header">
+            <h4 class="ellipsis">{{choosedFoods.name}}</h4>
+            <ion-icon
+              name="close"
+              class="specs-cancel"
+              (click)="onShowChooseList()"
+            ></ion-icon>
+          </header>
+          <section class="specs-details">
+            <h5 class="specs-details-title">
+              {{choosedFoods.specifications[0].name}}
+            </h5>
+            <ul>
+              <li
+                *ngFor="let item of choosedFoods.specifications[0].values; index as itemIndex"
+                [ngClass]="{'specs-activity': itemIndex === specsIndex}"
+                (click)="chooseSpecs(itemIndex)"
+              >
+                {{item}}
+              </li>
+            </ul>
+          </section>
+          <footer class="specs-footer">
+            <div class="specs-price">
+              <span>¥ </span>
+              <span>{{choosedFoods.specfoods[specsIndex].price}}</span>
+            </div>
+            <div
+              class="specs-addto-cart"
+              (click)="addSpecs(choosedFoods.category_id, choosedFoods.item_id, choosedFoods.specfoods[specsIndex].food_id, choosedFoods.specfoods[specsIndex].name, choosedFoods.specfoods[specsIndex].price, choosedFoods.specifications[0].values[specsIndex], choosedFoods.specfoods[specsIndex].packing_fee, choosedFoods.specfoods[specsIndex].sku_id, choosedFoods.specfoods[specsIndex].stock)"
+            >
+              选好了
+            </div>
+          </footer>
+        </div>
+      </div>
     </section>
   </div>
 </ion-content>
