@@ -11,6 +11,7 @@ import { MsiteComponent } from './shop/msite/msite.component';
 import { LoadingComponent } from './loading/loading.component';
 import { RatingStarComponent } from './rating-star/rating-star.component';
 import { BuyCarComponent } from './buy-car/buy-car.component';
+import { EvaluteComponent } from './shop/evalute/evalute.component';
 
 const components = [
   LoginHeaderComponent,
@@ -22,6 +23,7 @@ const components = [
   LoadingComponent,
   RatingStarComponent,
   BuyCarComponent,
+  EvaluteComponent,
 ];
 
 @NgModule({

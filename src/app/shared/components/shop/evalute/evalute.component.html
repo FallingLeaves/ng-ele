@@ -1,0 +1,86 @@
+<section class="rating-container" id="ratingContainer">
+  <section>
+    <section>
+      <header class="rating-header">
+        <section class="rating-header-left">
+          <p>{{ rating }}</p>
+          <p>综合评价</p>
+          <p>
+            高于周边商家
+            {{ (ratingScoresData?.compare_rating * 100).toFixed(1) }}
+            %
+          </p>
+        </section>
+        <section class="rating-header-right">
+          <p>
+            <span>服务态度</span>
+            <app-rating-star
+              [rating]="ratingScoresData?.service_score"
+            ></app-rating-star>
+            <span class="rating-num">
+              {{ ratingScoresData?.service_score.toFixed(1) }}
+            </span>
+          </p>
+          <p>
+            <span>菜品评价</span>
+            <app-rating-star [rating]="ratingScoresData?.food_score"></app-rating-star>
+            <span class="rating-num">
+              {{ ratingScoresData?.food_score?.toFixed(1) }}
+            </span>
+          </p>
+          <p>
+            <span>送达时间</span>
+            <span class="delivery-time"
+              >{{ ratingScoresData?.deliver_time }}分钟</span
+            >
+          </p>
+        </section>
+      </header>
+      <ul class="rating-list-ul">
+        <li
+          *ngFor="let item of ratingList; index as index"
+          class="rating-list-li"
+        >
+          <img [src]="getImgPath(item.avatar)" class="user-avatar" />
+          <section class="rating-list-details">
+            <header>
+              <section class="username-star">
+                <p class="username">{{ item.username }}</p>
+                <p class="star-desc">
+                  <app-rating-star [rating]="item.rating_star"></app-rating-star>
+                  <span class="time-spent-desc">
+                    {{ item.time_spent_desc }}
+                  </span>
+                </p>
+              </section>
+              <time class="rated-at">{{ item.rated_at }}</time>
+            </header>
+            <ul class="food-img-ul">
+              <li *ngFor="let item of item.item_ratings; index as index">
+                <img
+                  [src]="getImgPath(item.image_hash)"
+                  *ngIf="item.image_hash"
+                />
+              </li>
+            </ul>
+            <ul class="food-name-ul">
+              <li
+                *ngFor="let item of item.item_ratings; index as index"
+                class="ellipsis"
+              >
+                {{ item.food_name }}
+              </li>
+            </ul>
+          </section>
+        </li>
+      </ul>
+    </section>
+  </section>
+</section>
+<p *ngIf="touchEnd" class="empty_data">没有更多了</p>
+<!--<loading [hidden]="!showLoading"></loading>-->
+<ion-infinite-scroll (ionInfinite)="loaderMore($event)">
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+  ></ion-infinite-scroll-content>
+</ion-infinite-scroll>

@@ -150,4 +150,22 @@ export class RequestService {
     };
     return this.http.get('/shopping/v2/menu', { params });
   }
+
+  /* 获取商铺评价分数 */
+  getRatingScores(shopId: string): any {
+    return this.http.get('/ugc/v2/restaurants/' + shopId + '/ratings/scores');
+  }
+
+  /* 获取商铺评价列表 */
+  getRatingList(shopId: string, offset: any, tagName = ''): any {
+    const params = {
+      has_content: 'true',
+      offset,
+      limit: 10,
+      tag_name: tagName,
+    };
+    return this.http.get('/ugc/v2/restaurants/' + shopId + '/ratings', {
+      params,
+    });
+  }
 }

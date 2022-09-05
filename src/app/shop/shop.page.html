@@ -244,7 +244,12 @@
           ></div>
         </div>
       </section>
-      <div [hidden]="changeShowType !='rating'" class="rating-container"></div>
+      <div [hidden]="changeShowType !='rating'" class="rating-container">
+        <app-evalute
+          [shopId]="shopId"
+          [rating]="shopDetailData.rating"
+        ></app-evalute>
+      </div>
     </section>
     <section>
       <div

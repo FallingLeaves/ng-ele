@@ -6,8 +6,14 @@ import {
   Route,
   Router,
 } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 import { combineLatest } from 'rxjs';
-import { RequestService, CartService, LocalstorageService } from '../services';
+import {
+  RequestService,
+  CartService,
+  LocalstorageService,
+  ShopService,
+} from '../services';
 
 @Component({
   selector: 'app-shop',
@@ -45,7 +51,9 @@ export class ShopPage implements OnInit {
     public requestService: RequestService,
     public router: Router,
     public cartService: CartService,
-    public localStorageService: LocalstorageService
+    public localStorageService: LocalstorageService,
+    public domSanitizer: DomSanitizer,
+    public shopService: ShopService
   ) {
     this.cartFoodList = [];
   }
@@ -81,6 +89,8 @@ export class ShopPage implements OnInit {
         this.initCart();
         this.getShopDetails();
         this.getFoodMenu();
+        this.ratingScores();
+        this.getRatingList(0);
       }
     );
   }
@@ -89,6 +99,7 @@ export class ShopPage implements OnInit {
     this.requestService
       .getShopDetails(this.shopId, this.latitude, this.longitude)
       .subscribe((res) => {
+        this.shopService.setShopDetailData(res);
         this.shopDetailData = res;
         this.promotionInfo =
           res.promotion_info || '欢迎光临，用餐高峰期请提前下单，谢谢。';
@@ -101,6 +112,21 @@ export class ShopPage implements OnInit {
       this.menuList = res;
       this.menuFood = this.menuList[0];
       this.initCategoryNum();
+    });
+  }
+
+  getRatingList(ratingOffset: number, name?: string) {
+    this.requestService
+      .getRatingList(this.shopId, ratingOffset, name)
+      .subscribe((res) => {
+        this.shopService.setRatingList(res);
+      });
+  }
+
+  ratingScores() {
+    this.requestService.getRatingScores(this.shopId).subscribe((res) => {
+      this.ratingScoresData = res;
+      this.shopService.setRatingScoresData(res);
     });
   }
 

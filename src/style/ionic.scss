@@ -69,6 +69,7 @@ ion-infinite-scroll-content {
 /** ion header **/
 .header-md back-icon {
   position: absolute;
+  z-index: 99;
 }
 
 /** ion slides **/
