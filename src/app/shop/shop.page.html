@@ -3,6 +3,8 @@
     <back-icon size="sm"></back-icon>
     <header
       *ngIf="shopDetailData"
+      [routerLink]="['/shop', shopId, 'detail']"
+      [queryParams]="{geohash: geohash}"
       class="shop-detail-header"
       ref="shopheader"
       [ngStyle]="{'zIndex': showActivities? '14':'10'}"
@@ -107,7 +109,7 @@
                 </section>
                 <section class="menu-food-description">
                   <h3 class="food-description-head">
-                    <strong class="description_foodname">{{foods.name}}</strong>
+                    <strong class="description-foodname">{{foods.name}}</strong>
                     <ul *ngIf="foods.attributes.length" class="attributes-ul">
                       <li
                         *ngFor="let attribute of foods.attributes; index as foodindex"

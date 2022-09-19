@@ -7,7 +7,16 @@ const routes: Routes = [
   { path: '', redirectTo: ':id', pathMatch: 'full' },
   {
     path: ':id',
-    children: [{ path: '', component: ShopPage }],
+    children: [
+      { path: '', component: ShopPage },
+      {
+        path: 'detail',
+        loadChildren: () =>
+          import('./shop-detail/shop-detail.module').then(
+            (m) => m.ShopDetailModule
+          ),
+      },
+    ],
   },
 ];
 

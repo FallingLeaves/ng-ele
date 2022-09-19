@@ -1,0 +1,165 @@
+@import "../../../style/mixin.scss";
+.description-top {
+  padding: 0.8rem 0.6rem;
+  background-color: #fff;
+  .description-header {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    .description-left {
+      margin-right: 0.6rem;
+      img {
+        @include wh(4.6rem, 4.6rem);
+        display: block;
+        border-radius: 0.15rem;
+      }
+    }
+    .description-right {
+      flex: 1;
+      .description-title {
+        @include sc(1rem, #000);
+        font-weight: bold;
+        width: 100%;
+        margin-bottom: 0.3rem;
+      }
+      .description-text {
+        @include sc(0.5rem, #fff);
+        margin-bottom: 0.9rem;
+        display: flex;
+        .rating-num {
+          margin-left: 0.2rem;
+          margin-right: 0.5rem;
+          font-size: 0.62rem;
+          color: #f60;
+        }
+        .order-num {
+          font-size: 0.62rem;
+          color: #8e8e8e;
+        }
+      }
+      .description-fee-distance {
+        @include sc(0.5rem, #fff);
+        width: 100%;
+        display: flex;
+        .fee {
+          flex: 1;
+        }
+        .delivery-mode {
+          color: #fff;
+          padding: 0 0.2rem;
+          border-radius: 0.2rem;
+        }
+      }
+    }
+  }
+  .description-info {
+    background-color: #f5f5f5;
+    margin-top: 0.6rem;
+    .float-delivery-fee {
+      font-size: 0.6rem;
+      padding: 0.6rem;
+    }
+    .promotion-info {
+      font-size: 0.6rem;
+      padding: 0.6rem;
+    }
+  }
+}
+
+.description-rating {
+  margin-top: 0.6rem;
+  .rating-header {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    .score {
+      color: #f60;
+    }
+  }
+  .rating-lastest {
+    background-color: #fff;
+    display: flex;
+    padding: 0.6rem;
+    border-bottom: 1px solid #ddd;
+    .user-avatar {
+      @include wh(1.5rem, 1.5rem);
+      border: 0.025rem;
+      border-radius: 50%;
+      margin-right: 0.8rem;
+    }
+    .username-star {
+      flex: 1;
+      @include sc(0.55rem, #666);
+      .username {
+        color: #666;
+        margin-bottom: 0.2rem;
+      }
+      .star-desc {
+        display: flex;
+        align-items: center;
+      }
+    }
+    .rated-at {
+      @include sc(0.67rem, #999);
+    }
+  }
+  .view-more {
+    font-size: 1rem;
+    color: #8e8e8e;
+    background-color: #fff;
+    padding: 0.6rem;
+    text-align: center;
+    .view-arrow {
+      font-size: 1.2rem;
+      color: #8e8e8e;
+      margin-left: 0.2rem;
+      vertical-align: middle;
+    }
+  }
+}
+.description-activities-supports {
+  margin-top: 0.6rem;
+  padding: 0 0.6rem;
+  background-color: #fff;
+  .activities-supports-header {
+    font-size: 1rem;
+    color: #000;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #ddd;
+  }
+  .activities-li,
+  .supports-li {
+    font-size: 0.6rem;
+    color: #8e8e8e;
+    line-height: 2.5rem;
+  }
+  .activities-icon,
+  .supports-icon {
+    color: #fff;
+    padding: 0 0.2rem;
+  }
+}
+.description-shop-info {
+  margin-top: 0.6rem;
+  padding: 0 0.6rem;
+  background-color: #fff;
+  .shop-info-header {
+    font-size: 1rem;
+    color: #000;
+    padding: 0.6rem 0;
+  }
+  .elm,
+  .address,
+  .shop-info-header {
+    border-bottom: 1px solid #ddd;
+  }
+  .elm,
+  .address,
+  .time {
+    padding: 0.6rem 0;
+    font-size: 0.6rem;
+  }
+}

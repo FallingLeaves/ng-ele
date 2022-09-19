@@ -152,9 +152,9 @@ export class ShopPage implements OnInit {
   }
 
   getFoodImgPath(path: string) {
-    if (path.includes('http')) {
-      return path;
-    }
+    // if (path.includes('http')) {
+    //   return path;
+    // }
     return this.imgBaseUrl + path;
   }
 
